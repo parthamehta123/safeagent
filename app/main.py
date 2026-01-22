@@ -33,6 +33,21 @@ def run(req: AgentRequest):
     selected = choose_files(req.prompt, file_list)
 
     if not selected:
+        db = SessionLocal()
+        try:
+            session = AgentSession(
+                repo_url=req.repo_url,
+                prompt=req.prompt,
+                files_changed=[],
+                status="rejected",
+                error="Model did not select any files",
+                trace={"rejection_reason": "no_files_selected"},
+            )
+            db.add(session)
+            db.commit()
+        finally:
+            db.close()
+
         raise HTTPException(400, "Model did not select any files")
 
     # Phase 3: load only selected files
@@ -153,3 +168,8 @@ def get_trace(session_id: str):
         return {"trace": row.trace}
     finally:
         db.close()
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}

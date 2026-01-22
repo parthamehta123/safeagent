@@ -68,6 +68,28 @@ This creates **defense-in-depth for autonomous agents**.
 
 ------------------------------------------------------------------------
 
+## Security Model
+
+SafeAgent explicitly assumes the LLM is **untrusted**.
+
+The system is designed so that even a fully adversarial model cannot:
+
+- Modify files that do not exist
+- Write to arbitrary paths
+- Modify the real repository directly
+- Bypass hash validation
+- Bypass diff validation
+- Skip verification steps
+- Push directly to main
+- Delete critical files undetected
+
+All safety guarantees are enforced **outside the model**, at the infrastructure layer.
+
+This mirrors how real-world secure systems are designed:
+> Never trust the component that is easiest to compromise.
+
+------------------------------------------------------------------------
+
 ## Why This Matters
 
 Enterprises want AI agents. They do not trust AI agents.
@@ -105,6 +127,21 @@ SafeAgent provides the missing **trust layer** between autonomous AI systems and
 -   `/sessions`, `/sessions/{id}`, `/diff/{id}` endpoints
 
 This is a **real agent execution platform**, not a wrapper script.
+
+------------------------------------------------------------------------
+
+## Design Principles
+
+SafeAgent follows explicit engineering principles inspired by real production systems:
+
+- **LLMs are probabilistic, infrastructure must be deterministic**
+- **Trust must be earned through verification, not assumed**
+- **All side effects must be auditable**
+- **Failure must be safe by default**
+- **Observability is a core feature, not an add-on**
+- **Guardrails belong in code, not prompts**
+
+These principles shape every architectural decision in this project.
 
 ------------------------------------------------------------------------
 
@@ -161,6 +198,28 @@ This transforms the system from: \> "Black box agent"
 into
 
 > "Auditable autonomous system"
+
+------------------------------------------------------------------------
+
+### Health Check
+
+SafeAgent exposes a standard health endpoint suitable for load balancers and uptime monitors:
+
+- `GET /health` — Returns service status
+
+Example:
+```bash
+curl http://localhost:8000/health
+```
+
+Response:
+```json
+{
+    "status":"ok"
+}
+```
+
+This signals production readiness and operational maturity.
 
 ------------------------------------------------------------------------
 
