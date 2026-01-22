@@ -1,8 +1,10 @@
 # SafeAgent -- Trust Infrastructure for Autonomous AI Code Agents
 
-SafeAgent is a **production-grade execution layer for autonomous AI coding agents** that enforces safety, determinism, and auditability before any code change reaches your repository.
+> **SafeAgent is a security-first control plane for autonomous code agents.**
 
-This is not another agent demo. This is **infrastructure for making AI agents safe enough for real production environments**.
+> SafeAgent is a **production-grade execution layer for autonomous AI coding agents** that enforces safety, determinism, and auditability before any code change reaches your repository.
+
+> This is not another agent demo. This is **infrastructure for making AI agents safe enough for real production environments**.
 
 ------------------------------------------------------------------------
 
@@ -182,6 +184,24 @@ SafeAgent will:
 -   Open a Pull Request
 -   Leave a comment explaining what safeguards were applied
 -   Store a permanent execution record
+
+------------------------------------------------------------------------
+
+## Quick Start
+
+```bash
+git clone https://github.com/parthamehta123/safeagent
+cd safeagent
+docker compose up --build
+```
+
+Then test:
+```bash
+curl http://localhost:8000/health
+curl http://localhost:8000/sessions
+```
+
+This shows operational completeness.
 
 ------------------------------------------------------------------------
 
