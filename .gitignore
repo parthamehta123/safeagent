@@ -1,0 +1,21 @@
+# Secrets
+.env
+
+# Runtime artifacts
+audit.log
+/tmp/safeagent
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Environments
+.venv/
+venv/
+
+# OS
+.DS_Store
